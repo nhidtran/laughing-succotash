@@ -17,6 +17,7 @@ const reactCode = `
   </video>
 </SomeSCComponent>
 `;
+
 const output = babel.transform(reactCode, {
   presets: ["@babel/preset-env", "@babel/preset-react"],
   plugins: [
@@ -25,11 +26,7 @@ const output = babel.transform(reactCode, {
         name: "removeJSXElement",
         visitor: {
           JSXElement(path, state) {
-            const elementNames = state.opts.elementNames || [
-              "img",
-              "video",
-              "Image",
-            ];
+            const elements = state.opts.elements || ["img", "video", "Image"];
 
             const nodeName = path
               .get("openingElement")
